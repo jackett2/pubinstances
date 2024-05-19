@@ -16,7 +16,7 @@ jobs:
         
         git clone https://github.com/iv-org/invidious.git
         cd invidious
-        sed -i 's/CHANGE_ME!!/${{ secrets.SECRET_IV_HMAC_KEY }}/g' docker-compose.yml
+        sed -i 's/CHANGE_ME!!/${{ secrets.SECRET_INV_HMAC_KEY }}/g' docker-compose.yml
         docker compose up -d
 
         ssh -o StrictHostKeyChecking=no -R 80:localhost:3000 serveo.net
