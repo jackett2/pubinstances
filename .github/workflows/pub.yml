@@ -1,4 +1,4 @@
-name: Test tunnel
+name: Instanciate public services
 
 on: workflow_dispatch
 
