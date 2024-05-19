@@ -1,0 +1,22 @@
+name: Test tunnel
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test
+      run: |
+        set -xe
+        
+        cd /tmp/
+        
+        git clone https://github.com/iv-org/invidious.git
+        cd invidious
+        sed -i 's//g' docker-compose.yml
+        docker compose up -d
+
+        ssh -o StrictHostKeyChecking=no -R 80:localhost:3000 serveo.net
