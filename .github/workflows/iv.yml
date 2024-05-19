@@ -11,6 +11,10 @@ jobs:
     - name: Test
       run: |
         set -xe
+
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SECRET_SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
         
         cd /tmp/
         
@@ -19,4 +23,4 @@ jobs:
         sed -i 's/CHANGE_ME!!/${{ secrets.SECRET_INV_HMAC_KEY }}/g' docker-compose.yml
         docker compose up -d
 
-        ssh -o StrictHostKeyChecking=no -R 80:localhost:3000 serveo.net
+        ssh -o StrictHostKeyChecking=no -R inv.serveo.net:80:localhost:3000 serveo.net
