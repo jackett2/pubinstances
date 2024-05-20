@@ -18,6 +18,8 @@ jobs:
         #ssh -T -o StrictHostKeyChecking=no -R iv.serveo.net:80:localhost:3000 serveo.net
         
         cd /tmp/
+        wget -nv https://github.com/cloudflare/cloudflared/releases/download/2024.5.0/cloudflared-linux-amd64 -O cfd
+        chmod u+x cfd
         
         git clone https://github.com/iv-org/invidious.git
         cd invidious
