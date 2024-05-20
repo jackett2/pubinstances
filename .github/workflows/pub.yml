@@ -12,10 +12,10 @@ jobs:
       run: |
         set -xe
 
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SECRET_SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh -T -o StrictHostKeyChecking=no -R iv.serveo.net:80:localhost:3000 serveo.net
+        #mkdir -p ~/.ssh
+        #echo "${{ secrets.SECRET_SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
+        #chmod 600 ~/.ssh/id_rsa
+        #ssh -T -o StrictHostKeyChecking=no -R iv.serveo.net:80:localhost:3000 serveo.net
         
         cd /tmp/
         
@@ -25,3 +25,4 @@ jobs:
         docker compose up -d
 
         #ssh -T -o StrictHostKeyChecking=no -R inv.serveo.net:80:localhost:3000 serveo.net
+        curl -X POST "https://api.dynu.com/v2/dns/10140513/webRedirect/10626362" -H "accept: application/json" -H "API-Key: f3WfZcb633cV7Ye44U6X4bgXV56fYfbb" -H "Content-Type: application/json" -d "{\"id\":10626362,\"domainId\":10140513,\"domainName\":\"jdo.mywire.org\",\"nodeName\":\"iv\",\"hostname\":\"iv.jdo.mywire.org\",\"redirectType\":\"UF\",\"state\":true,\"updatedOn\":\"2024-05-20T08:28:38\",\"url\":\"https://toto.fr\",\"cloak\":false,\"includeQueryString\":true,\"redirect301\":false,\"title\":\"Test\",\"metaKeywords\":\"Test\",\"metaDescription\":\"Test\"}"
