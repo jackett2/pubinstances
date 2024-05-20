@@ -13,7 +13,7 @@ jobs:
         set -xe
         
         #mkdir -p ~/.ssh
-        #echo "${{ secrets.SECRET_SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
+        # echo '${{ secrets.SECRET_SSH_KEY_PRIVATE }}' > ~/.ssh/id_rsa
         #chmod 600 ~/.ssh/id_rsa
         #ssh -T -o StrictHostKeyChecking=no -R iv.serveo.net:80:localhost:3000 serveo.net
         
