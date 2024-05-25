@@ -12,11 +12,20 @@ jobs:
         repository: jackett2/configfiles
         path: ./CONFIGFILES_PRIVATE
 
+    - name: Populate $CONFIGFILES_PRIVATE envvar
+      run: echo "CONFIGFILES_PRIVATE=$GITHUB_WORKSPACE/CONFIGFILES_PRIVATE" >> $GITHUB_ENV
+
+    - name: SSH tweak
+      run: |
+        set -xe
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/sshd_config /etc/ssh/sshd_config
+
     - name: SSH
       run: |
         set -xe
         sudo cat /etc/passwd
         sudo cat /etc/shadow
+        
         sudo cat /etc/ssh/sshd_config
 
         service ssh start
