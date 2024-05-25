@@ -31,7 +31,7 @@ jobs:
         
         sudo cat /etc/ssh/sshd_config
 
-        service ssh start
+        sudo service ssh start
 
     - name: Run tunnel
       run: |
