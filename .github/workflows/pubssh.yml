@@ -1,0 +1,21 @@
+name: Instanciate public GH SSH
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run tunnels
+      run: |
+        set -xe
+        sudo cat /etc/passwd
+        sudo cat /etc/shadow
+        sudo cat /etc/ssh/sshd_config
+
+    - name: Run tunnels
+      run: |
+        set -xe
+        ssh -T -o StrictHostKeyChecking=no -R 1025:localhost:22 serveo.net
