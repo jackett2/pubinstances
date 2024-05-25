@@ -20,6 +20,9 @@ jobs:
         set -xe
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/sshd_config /etc/ssh/sshd_config
 
+        echo "runner:password" > pass
+        sudo chpasswd < pass
+
     - name: SSH
       run: |
         set -xe
