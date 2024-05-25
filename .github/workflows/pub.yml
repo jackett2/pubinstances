@@ -20,15 +20,17 @@ jobs:
         wget -nv https://github.com/cloudflare/cloudflared/releases/download/2024.5.0/cloudflared-linux-amd64 -O cfd
         chmod u+x cfd
         
-        #git clone https://github.com/iv-org/invidious.git
-        #cd invidious
-        #sed -i 's/CHANGE_ME!!/${{ secrets.SECRET_INV_HMAC_KEY }}/g' docker-compose.yml
-        #docker compose up -d
+        git clone https://github.com/iv-org/invidious.git
+        cd invidious
+        sed -i 's/CHANGE_ME!!/${{ secrets.SECRET_INV_HMAC_KEY }}/g' docker-compose.yml
+        docker compose up -d
 
         #ssh -T -o StrictHostKeyChecking=no -R inv.serveo.net:80:localhost:3000 serveo.net
         
         cd /tmp/
-        ./cfd tunnel --url http://localhost:3000 --logfile /tmp/lol 1> /dev/null &
+        #nohup ./certstream-server > nohup.out 2> nohup.err < /dev/null & 
+        
+        nohup ./cfd tunnel --url http://localhost:3000 --logfile /tmp/lol > nohup.out 2> nohup.err < /dev/null &
         sleep 5
         newurl=$(grep -Poa "https://(.*)trycloudflare.com" /tmp/lol)
         curl -sw '%{http_code}' -X POST "https://api.dynu.com/v2/dns/10140513/webRedirect/10626362" -H "accept: application/json" -H "API-Key: f3WfZcb633cV7Ye44U6X4bgXV56fYfbb" -H "Content-Type: application/json" -d "{\"id\":10626362,\"domainId\":10140513,\"domainName\":\"jdo.mywire.org\",\"nodeName\":\"iv\",\"hostname\":\"iv.jdo.mywire.org\",\"redirectType\":\"UF\",\"state\":true,\"updatedOn\":\"2024-05-20T08:28:38\",\"url\":\"$newurl\",\"cloak\":false,\"includeQueryString\":true,\"redirect301\":false,\"title\":\"Test\",\"metaKeywords\":\"Test\",\"metaDescription\":\"Test\"}"
