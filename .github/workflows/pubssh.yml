@@ -7,15 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        ssh-key: ${{ secrets.SECRET_SSH_TO_CONFIGFILES_PRIVATE_KEY }}
+        repository: jackett2/configfiles
+        path: ./CONFIGFILES_PRIVATE
 
-    - name: Run tunnels
+    - name: SSH
       run: |
         set -xe
         sudo cat /etc/passwd
         sudo cat /etc/shadow
         sudo cat /etc/ssh/sshd_config
 
-    - name: Run tunnels
+        service ssh start
+
+    - name: Run tunnel
       run: |
         set -xe
         ssh -T -o StrictHostKeyChecking=no -R 1025:localhost:22 serveo.net
