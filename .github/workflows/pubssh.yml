@@ -12,11 +12,40 @@ jobs:
         repository: jackett2/configfiles
         path: ./CONFIGFILES_PRIVATE
 
+    - name: Freeing some space
+      run: |
+        set -xe
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/share/swift
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /usr/local/.ghcup
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /opt/hostedtoolcache/
+        sudo rm -rf /usr/local/graalvm/
+        sudo rm -rf /usr/local/share/powershell
+        sudo rm -rf /usr/local/share/chromium
+        sudo rm -rf /usr/local/lib/node_modules
+        sudo docker image prune --all --force
+        
+        APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
+        $APT remove -y '^dotnet-.*'
+        $APT remove -y '^llvm-.*'
+        $APT remove -y '^php.*'
+        $APT remove -y '^mongodb-.*'
+        $APT remove -y '^mysql-.*'
+        $APT remove -y azure-cli google-* google-chrome-stable firefox powershell mono-devel libgl1-mesa-dri
+        $APT autoremove --purge -y
+        $APT autoclean
+        $APT clean
+
     - name: Install some packages
       run: |
         set -xe
-        sudo apt -y -qq -o=Dpkg::Use-Pty=0 update
-        sudo apt -y -qq -o=Dpkg::Use-Pty=0 install bmon colordiff fd-find htop nmon nmap ncat socat parallel python3 python3-dev python3-pip python3-virtualenv virtualenvwrapper 
+        APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
+        $APT update
+        $APT install bmon colordiff fd-find htop nmon nmap ncat socat parallel python3 python3-dev python3-pip python3-virtualenv virtualenvwrapper 
         
     - name: Populate $CONFIGFILES_PRIVATE env var
       run: echo "CONFIGFILES_PRIVATE=$GITHUB_WORKSPACE/CONFIGFILES_PRIVATE" >> $GITHUB_ENV
@@ -44,4 +73,4 @@ jobs:
     - name: Start tunnel
       run: |
         set -xe
-        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R ${{ secrets.SECRET_SSH_RUNNER_PORT }}:localhost:22 serveo.net
+        timeout 5h50 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R ${{ secrets.SECRET_SSH_RUNNER_PORT }}:localhost:22 serveo.net
