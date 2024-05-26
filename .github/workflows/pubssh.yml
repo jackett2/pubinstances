@@ -37,4 +37,4 @@ jobs:
     - name: Run tunnel
       run: |
         set -xe
-        ssh -T -o StrictHostKeyChecking=no -R 1025:localhost:22 serveo.net
+        ssh -o StrictHostKeyChecking=no -R 1025:localhost:22 serveo.net
