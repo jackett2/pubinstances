@@ -19,8 +19,9 @@ jobs:
       run: |
         set -xe
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/sshd_config /etc/ssh/sshd_config
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/bashrc ~/.bashrc
 
-        echo "runner:password" > pass
+        echo "runner:${{ secrets.SECRET_SSH_RUNNER_PASSWORD }}" > pass
         sudo chpasswd < pass
 
     - name: SSH
