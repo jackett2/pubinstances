@@ -75,5 +75,4 @@ jobs:
         
     - name: Start tunnel
       run: |
-        set -xe
         timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R ${{ secrets.SECRET_SSH_RUNNER_PORT }}:localhost:22 serveo.net
