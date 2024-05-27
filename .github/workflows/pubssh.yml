@@ -3,7 +3,8 @@ name: Instanciate public GH SSH
 on: 
     #workflow_dispatch
     schedule:
-    - cron:  '0 */6 * * *'
+    #- cron:  '0 */6 * * *'
+    - cron: '0 4,10,16,22 * * *'
 
 jobs:
   build:
