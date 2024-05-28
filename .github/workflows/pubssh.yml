@@ -16,6 +16,11 @@ jobs:
         repository: jackett2/configfiles
         path: ./CONFIGFILES_PRIVATE
 
+    - name: What time is it ?
+      run: |
+        date -u
+        TZ="Europe/Paris" date
+    
     - name: Freeing some space
       run: |
         set -xe
