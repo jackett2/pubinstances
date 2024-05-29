@@ -24,18 +24,20 @@ jobs:
     - name: Freeing some space
       run: |
         set -xe
-        sudo rm -rf /usr/share/dotnet
-        sudo rm -rf /usr/share/swift
-        sudo rm -rf /usr/local/lib/android
-        sudo rm -rf /opt/ghc
-        sudo rm -rf /usr/local/.ghcup
-        sudo rm -rf "/usr/local/share/boost"
-        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-        sudo rm -rf /opt/hostedtoolcache/
-        sudo rm -rf /usr/local/graalvm/
-        sudo rm -rf /usr/local/share/powershell
-        sudo rm -rf /usr/local/share/chromium
-        sudo rm -rf /usr/local/lib/node_modules
+        
+        RM='sudo rm -rf'
+        $RM /usr/share/dotnet
+        $RM /usr/share/swift
+        $RM /usr/local/lib/android
+        $RM /opt/ghc
+        $RM /usr/local/.ghcup
+        $RM "/usr/local/share/boost"
+        $RM "$AGENT_TOOLSDIRECTORY"
+        $RM /opt/hostedtoolcache/
+        $RM /usr/local/graalvm/
+        $RM /usr/local/share/powershell
+        $RM /usr/local/share/chromium
+        $RM /usr/local/lib/node_modules
         sudo docker image prune --all --force
         
         APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
@@ -84,4 +86,4 @@ jobs:
         
     - name: Start tunnel
       run: |
-        timeout 320m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R ${{ secrets.SECRET_SSH_RUNNER_PORT }}:localhost:22 serveo.net
+        timeout 320m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R ${{ secrets.SECRET_SSH_RUNNER_PORT }}:localhost:22 ${{ secrets.SECRET_SSH_RUNNER_GW }}
