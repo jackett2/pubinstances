@@ -66,6 +66,9 @@ jobs:
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/bashrc ~/.bashrc
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/bash_profile ~/.bash_profile
 
+        sudo rm /etc/localtime
+        sudo ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+        
         echo "runner:${{ secrets.SECRET_SSH_RUNNER_PASSWORD }}" > pass
         sudo chpasswd < pass
 
