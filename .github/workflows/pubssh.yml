@@ -90,4 +90,4 @@ jobs:
         
     - name: Start tunnel
       run: |
-        timeout 330m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R ${{ secrets.SECRET_SSH_RUNNER_PORT }}:localhost:22 ${{ secrets.SECRET_SSH_RUNNER_GW }}
+        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R ${{ secrets.SECRET_SSH_RUNNER_PORT }}:localhost:22 ${{ secrets.SECRET_SSH_RUNNER_GW }}
