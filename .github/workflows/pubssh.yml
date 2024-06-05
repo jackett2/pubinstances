@@ -66,7 +66,11 @@ jobs:
         set -xe
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/sshd_config /etc/ssh/sshd_config
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/bashrc ~/.bashrc
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/bashrc /root/.bashrc
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/bash_profile ~/.bash_profile
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/bash_profile /root/.bash_profile
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/vimrc ~/.vimrc
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/vimrc /root/.vimrc
 
         sudo rm /etc/localtime
         sudo ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
