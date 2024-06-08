@@ -4,8 +4,7 @@ on:
   workflow_dispatch: 
     inputs:
           SSH_PORT:
-            required: true
-            default: ${{ secrets.SECRET_SSH_RUNNER_ON_DEMAND_PORT }}
+            description: SSH port
 
 jobs:
   build:
@@ -88,7 +87,16 @@ jobs:
         #sudo cat /etc/ssh/sshd_config
         
         sudo service ssh start
+
+    - name: Set default SSH port
+      run: |
+        echo "SSH_PORT=$${{ secrets.SECRET_SSH_RUNNER_ON_DEMAND_PORT }}" >> $GITHUB_ENV
+        
+    - name: Replace default SSH port if workflow input is given
+      if: "${{ github.event.inputs.SSH_PORT != '' }}"
+      run: |
+        echo "SSH_PORT=${{ github.event.inputs.SSH_PORT }}" >> $GITHUB_ENV
         
     - name: Start tunnel
       run: |
-        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R ${{ github.event.inputs.SSH_PORT }}:localhost:22 ${{ secrets.SECRET_SSH_RUNNER_GW }}
+        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R $SSH_PORT:localhost:22 ${{ secrets.SECRET_SSH_RUNNER_GW }}
