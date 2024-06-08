@@ -86,6 +86,9 @@ jobs:
         sudo mkdir -p /mnt/dl/_incomplete/
         sudo wget -nv "https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-4.6.5_v2.0.10/x86_64-qbittorrent-nox" -O "/tmp/qbittorrent"
         sudo chmod o+x "/tmp/qbittorrent"
+        sudo mkdir -p "/home/runner/.config/qBittorrent/"
+        sudo cp -f $CONFIGFILES_PRIVATE/qbittorrent/qBittorrent.conf /home/runner/.config/qBittorrent/
+        
         sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
         sudo chmod o+x "/tmp/ia"
 
