@@ -82,6 +82,9 @@ jobs:
         sudo rm -rf /etc/update-motd.d/9*
         sudo rm -rf /etc/legal
 
+        sudo chmod -R o+rw /mnt/
+        sudo mkdir -p /mnt/dl/_incomplete/
+
         #sudo cat /etc/passwd
         #sudo cat /etc/shadow
         #sudo cat /etc/ssh/sshd_config
