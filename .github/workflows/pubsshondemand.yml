@@ -84,7 +84,10 @@ jobs:
 
         sudo chmod -R o+rw /mnt/
         sudo mkdir -p /mnt/dl/_incomplete/
-        sudo wget -nv 'https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-4.6.5_v2.0.10/x86_64-qbittorrent-nox' -O '/tmp/qbittorrent'
+        sudo wget -nv "https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-4.6.5_v2.0.10/x86_64-qbittorrent-nox" -O "/tmp/qbittorrent"
+        sudo chmod o+x "/tmp/qbittorrent"
+        sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
+        sudo chmod o+x "/tmp/ia"
 
         #sudo cat /etc/passwd
         #sudo cat /etc/shadow
