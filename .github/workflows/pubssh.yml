@@ -71,6 +71,7 @@ jobs:
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/bash_profile /root/.bash_profile
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/vimrc ~/.vimrc
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/vimrc /root/.vimrc
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/inputrc /etc/inputrc
 
         sudo rm /etc/localtime
         sudo ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
@@ -81,6 +82,13 @@ jobs:
         sudo rm -rf /etc/update-motd.d/10-help-text
         sudo rm -rf /etc/update-motd.d/9*
         sudo rm -rf /etc/legal
+
+        sudo chmod -R o+rw /mnt/
+        sudo mkdir -p /mnt/dl/_incomplete/
+        sudo wget -nv "https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-4.6.5_v2.0.10/x86_64-qbittorrent-nox" -O "/tmp/qbittorrent"
+        sudo chmod o+x "/tmp/qbittorrent"
+        sudo mkdir -p "/home/runner/.config/qBittorrent/"
+        sudo cp -f $CONFIGFILES_PRIVATE/qbittorrent/qBittorrent.conf /home/runner/.config/qBittorrent/
 
         #sudo cat /etc/passwd
         #sudo cat /etc/shadow
