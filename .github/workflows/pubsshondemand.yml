@@ -71,6 +71,7 @@ jobs:
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/bash_profile /root/.bash_profile
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/vimrc ~/.vimrc
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/vimrc /root/.vimrc
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/inputrc /etc/inputrc
 
         sudo rm /etc/localtime
         sudo ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
