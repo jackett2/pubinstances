@@ -3,8 +3,17 @@ name: Instanciate public GH SSH on demand
 on: 
   workflow_dispatch: 
     inputs:
+          PROVIDER:
+            description: 'Provider'
+            required: true
+            default: first
+            type: choice
+            options:
+            - first
+            - second
+          
           SSH_PORT:
-            description: SSH port
+            description: 'SSH port'
 
 jobs:
   build:
@@ -112,7 +121,12 @@ jobs:
       run: |
         echo "SSH_PORT=${{ github.event.inputs.SSH_PORT }}" >> $GITHUB_ENV
         
-    - name: Start tunnel
+    - name: Start tunnel with first
+      if: "${{ github.event.inputs.PROVIDER == 'first' }}"
       run: |
-        #timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R $SSH_PORT:localhost:22 ${{ secrets.SECRET_SSH_RUNNER_GW }}
+        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R $SSH_PORT:localhost:22 ${{ secrets.SECRET_SSH_RUNNER_GW }}
+
+    - name: Start tunnel with second
+      if: "${{ github.event.inputs.PROVIDER == 'second' }}"
+      run: |
         timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -NR ${{ secrets.SECRET_SSHJ_DEVICE_NAME }}:22:localhost:22 ${{ secrets.SECRET_SSHJ_USERNAME }}@ssh-j.com
