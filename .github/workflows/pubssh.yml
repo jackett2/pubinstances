@@ -94,6 +94,9 @@ jobs:
         sudo wget -nv "https://github.com/static-web-server/static-web-server/releases/download/v2.31.1/static-web-server-v2.31.1-x86_64-unknown-linux-gnu.tar.gz" -O "/tmp/static.tar.gz"
         sudo tar -xvzf "/tmp/static.tar.gz" --strip=1 -C "/tmp/"
         sudo chmod o+x "/tmp/static-web-server"
+
+        sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
+        sudo chmod o+x "/tmp/ia"
         
         sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2024.5.0/cloudflared-linux-amd64" -O "/tmp/cfd"
         sudo chmod o+x "/tmp/cfd"
