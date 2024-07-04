@@ -107,6 +107,9 @@ jobs:
         sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
         sudo chmod o+x "/tmp/ia"
 
+        sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2024.5.0/cloudflared-linux-amd64" -O "/tmp/cfd"
+        sudo chmod o+x "/tmp/cfd"
+
         #sudo cat /etc/passwd
         #sudo cat /etc/shadow
         #sudo cat /etc/ssh/sshd_config
