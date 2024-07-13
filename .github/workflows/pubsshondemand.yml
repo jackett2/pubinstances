@@ -50,6 +50,7 @@ jobs:
         sudo docker image prune --all --force
         
         APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
+        $APT update
         # $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*'
         # $APT remove -y '^llvm-.*'
         # $APT remove -y '^php.*'
