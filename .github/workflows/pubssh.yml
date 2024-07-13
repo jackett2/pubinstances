@@ -41,6 +41,7 @@ jobs:
         sudo docker image prune --all --force
         
         APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
+        $APT update
         $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*' azure-cli google-* google-chrome-stable firefox powershell mono-devel libgl1-mesa-dri microsoft-edge-stable temurin-8-jdk temurin-1* gfortran* heroku*
         $APT autoremove --purge -y
         $APT autoclean
