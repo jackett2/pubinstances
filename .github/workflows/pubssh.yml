@@ -58,6 +58,7 @@ jobs:
       run: echo "CONFIGFILES_PRIVATE=$GITHUB_WORKSPACE/CONFIGFILES_PRIVATE" >> $GITHUB_ENV
 
     - name: Tweak some config and start the SSH service
+      continue-on-error: true
       run: |
         set -xe
         sudo cp -f $CONFIGFILES_PRIVATE/sshd/sshd_config /etc/ssh/sshd_config
