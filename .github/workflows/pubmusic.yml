@@ -38,6 +38,7 @@ jobs:
 
         echo ${{ secrets.SECRET_MUSIC_SSH_KEY_PRIVATE }} > /tmp/key
         chmod 400 /tmp/key
+        ls -alh /tmp/key
         
         cp -f -r $CONFIGFILES_PRIVATE/music/ /tmp/music/
         cd /tmp/music/
