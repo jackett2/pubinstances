@@ -57,7 +57,7 @@ jobs:
         # $APT remove -y '^mongodb-.*'
         # $APT remove -y '^mysql-.*'
         # $APT remove -y '^r-(base|cran)*'
-        $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*' azure-cli google-* google-chrome-stable firefox powershell mono-devel libgl1-mesa-dri microsoft-edge-stable temurin-8-jdk temurin-1* gfortran* heroku*
+        $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*' azure-cli google-* google-chrome-stable firefox mono-devel libgl1-mesa-dri microsoft-edge-stable temurin-8-jdk temurin-1* gfortran*
         $APT autoremove --purge -y
         $APT autoclean
         $APT clean
