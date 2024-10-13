@@ -57,4 +57,4 @@ jobs:
         SECRET_SSH_RUNNER_GW: ${{ secrets.SECRET_SSH_RUNNER_GW }}
         
       run: |
-        timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_PIPED_FE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_BE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_PROXY":80:localhost:8080 -R "$SECRET_MUSIC_HYP_FE":80:localhost:8081 -R "$SECRET_MUSIC_HYP_BE":80:localhost:3000 "$SECRET_SSH_RUNNER_GW"
+        timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_PIPED_FE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_BE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_PROXY":80:localhost:8080 -R "$SECRET_MUSIC_HYP_FE":80:localhost:8081 -R "$SECRET_MUSIC_HYP_BE":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
