@@ -35,6 +35,9 @@ jobs:
       continue-on-error: true
       run: |
         set -xe
+        mkdir /tmp/music
+        
+        sudo cp -f $CONFIGFILES_PRIVATE/ /tmp/music/
         
         
     - name: Start tunnel
