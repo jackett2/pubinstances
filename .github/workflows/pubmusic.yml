@@ -1,4 +1,4 @@
-name: Instanciate music
+name: Instanciate public music
 
 on: 
     #workflow_dispatch
