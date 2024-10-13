@@ -41,7 +41,7 @@ jobs:
         chmod 400 /tmp/key
         ls -alh /tmp/key
         
-        cp -f -r $CONFIGFILES_PRIVATE/music/ /tmp/music/
+        cp -f -r $CONFIGFILES_PRIVATE/music/ /tmp/
         
         cd /tmp/music/
         ls -alh
