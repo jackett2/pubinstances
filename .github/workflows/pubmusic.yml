@@ -42,8 +42,10 @@ jobs:
         ls -alh /tmp/key
         
         cp -f -r $CONFIGFILES_PRIVATE/music/ /tmp/music/
+        
         cd /tmp/music/
-        docker-compose -f docker-compose.yml up -d
+        ls -alh
+        docker-compose -f ./docker-compose.yml up -d
         
     - name: Start tunnel
       env:
