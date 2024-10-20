@@ -26,18 +26,7 @@ jobs:
         set -xe
         
         RM='sudo rm -rf'
-        $RM /usr/share/dotnet
-        $RM /usr/share/swift
-        $RM /usr/local/lib/android
-        $RM /opt/ghc
-        $RM /usr/local/.ghcup
-        $RM "/usr/local/share/boost"
-        $RM "$AGENT_TOOLSDIRECTORY"
-        $RM /opt/hostedtoolcache/
-        $RM /usr/local/graalvm/
-        $RM /usr/local/share/powershell
-        $RM /usr/local/share/chromium
-        $RM /usr/local/lib/node_modules
+        $RM /usr/share/dotnet /usr/share/swift /usr/local/lib/android /opt/ghc /usr/local/.ghcup "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY" /opt/hostedtoolcache/ /usr/local/graalvm/ /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
         sudo docker image prune --all --force
         
         APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
@@ -90,13 +79,13 @@ jobs:
         sudo wget -nv "https://github.com/static-web-server/static-web-server/releases/download/v2.31.1/static-web-server-v2.31.1-x86_64-unknown-linux-gnu.tar.gz" -O "/tmp/static.tar.gz"
         sudo tar -xvzf "/tmp/static.tar.gz" --strip=1 -C "/tmp/"
         sudo chmod o+x "/tmp/static-web-server"
+        
+        sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2024.10.0/cloudflared-linux-amd64" -O "/tmp/cfd"
+        sudo chmod o+x "/tmp/cfd"
 
         sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
         sudo chmod o+x "/tmp/ia"
         
-        sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2024.5.0/cloudflared-linux-amd64" -O "/tmp/cfd"
-        sudo chmod o+x "/tmp/cfd"
-
         #sudo cat /etc/passwd
         #sudo cat /etc/shadow
         #sudo cat /etc/ssh/sshd_config
