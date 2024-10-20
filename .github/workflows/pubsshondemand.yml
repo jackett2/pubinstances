@@ -35,28 +35,22 @@ jobs:
         set -xe
         
         RM='sudo rm -rf'
-        $RM /usr/share/dotnet
-        $RM /usr/share/swift
-        $RM /usr/local/lib/android
-        $RM /opt/ghc
-        $RM /usr/local/.ghcup
-        $RM "/usr/local/share/boost"
-        $RM "$AGENT_TOOLSDIRECTORY"
-        $RM /opt/hostedtoolcache/
-        $RM /usr/local/graalvm/
-        $RM /usr/local/share/powershell
-        $RM /usr/local/share/chromium
-        $RM /usr/local/lib/node_modules
+        $RM /usr/share/dotnet /usr/share/swift /usr/local/lib/android /opt/ghc /usr/local/.ghcup "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY" /opt/hostedtoolcache/ /usr/local/graalvm/ /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
+        # $RM /usr/share/swift 
+        # $RM /usr/local/lib/android
+        # $RM /opt/ghc
+        # $RM /usr/local/.ghcup
+        # $RM "/usr/local/share/boost"
+        # $RM "$AGENT_TOOLSDIRECTORY"
+        # $RM /opt/hostedtoolcache/
+        # $RM /usr/local/graalvm/
+        # $RM /usr/local/share/powershell
+        # $RM /usr/local/share/chromium
+        # $RM /usr/local/lib/node_modules
         sudo docker image prune --all --force
         
         APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
         $APT update
-        # $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*'
-        # $APT remove -y '^llvm-.*'
-        # $APT remove -y '^php.*'
-        # $APT remove -y '^mongodb-.*'
-        # $APT remove -y '^mysql-.*'
-        # $APT remove -y '^r-(base|cran)*'
         $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*' azure-cli google-* google-chrome-stable firefox mono-devel libgl1-mesa-dri microsoft-edge-stable temurin-8-jdk temurin-1* gfortran*
         $APT autoremove --purge -y
         $APT autoclean
@@ -106,11 +100,11 @@ jobs:
         sudo tar -xvzf "/tmp/static.tar.gz" --strip=1 -C "/tmp/"
         sudo chmod o+x "/tmp/static-web-server"
         
-        sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
-        sudo chmod o+x "/tmp/ia"
-
         sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2024.5.0/cloudflared-linux-amd64" -O "/tmp/cfd"
         sudo chmod o+x "/tmp/cfd"
+
+        sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
+        sudo chmod o+x "/tmp/ia"
 
         #sudo cat /etc/passwd
         #sudo cat /etc/shadow
