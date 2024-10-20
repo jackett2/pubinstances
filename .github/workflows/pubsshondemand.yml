@@ -36,17 +36,6 @@ jobs:
         
         RM='sudo rm -rf'
         $RM /usr/share/dotnet /usr/share/swift /usr/local/lib/android /opt/ghc /usr/local/.ghcup "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY" /opt/hostedtoolcache/ /usr/local/graalvm/ /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
-        # $RM /usr/share/swift 
-        # $RM /usr/local/lib/android
-        # $RM /opt/ghc
-        # $RM /usr/local/.ghcup
-        # $RM "/usr/local/share/boost"
-        # $RM "$AGENT_TOOLSDIRECTORY"
-        # $RM /opt/hostedtoolcache/
-        # $RM /usr/local/graalvm/
-        # $RM /usr/local/share/powershell
-        # $RM /usr/local/share/chromium
-        # $RM /usr/local/lib/node_modules
         sudo docker image prune --all --force
         
         APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
