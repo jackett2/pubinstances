@@ -100,7 +100,7 @@ jobs:
         sudo tar -xvzf "/tmp/static.tar.gz" --strip=1 -C "/tmp/"
         sudo chmod o+x "/tmp/static-web-server"
         
-        sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2024.5.0/cloudflared-linux-amd64" -O "/tmp/cfd"
+        sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2024.10.0/cloudflared-linux-amd64" -O "/tmp/cfd"
         sudo chmod o+x "/tmp/cfd"
 
         sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
