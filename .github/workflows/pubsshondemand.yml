@@ -13,7 +13,10 @@ on:
             - second
           
           SSH_PORT:
-            description: 'SSH port'
+            description: 'SSH port for provider #1'
+
+          SSHJ_USER:
+            description: 'SSH username for provider #2'
 
 jobs:
   build:
@@ -118,4 +121,4 @@ jobs:
     - name: Start tunnel with second
       if: "${{ github.event.inputs.PROVIDER == 'second' }}"
       run: |
-        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -NR ${{ secrets.SECRET_SSHJ_DEVICE_NAME }}:22:localhost:22 ${{ secrets.SECRET_SSHJ_USERNAME }}@ssh-j.com
+        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -NR ${{ github.event.inputs.SSHJ_USER }}:22:localhost:22 ${{ github.event.inputs.SSHJ_USER }}@ssh-j.com
