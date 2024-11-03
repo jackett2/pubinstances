@@ -118,7 +118,18 @@ jobs:
       run: |
         timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R $SSH_PORT:localhost:22 ${{ secrets.SECRET_SSH_RUNNER_GW }}
 
+
+
+    - name: Set default SSHJ username
+      run: |
+        echo "SSHJ_USER=$${{ secrets.SECRET_SSHJ_USERNAME_ONDEMAND }}" >> $GITHUB_ENV
+    
+    - name: Replace default SSHJ username if workflow input is given
+      if: "${{ github.event.inputs.SSHJ_USER != '' }}"
+      run: |
+        echo "SSHJ_USER=${{ github.event.inputs.SSHJ_USER }}" >> $GITHUB_ENV
+
     - name: Start tunnel with second
       if: "${{ github.event.inputs.PROVIDER == 'second' }}"
       run: |
-        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -NR ${{ github.event.inputs.SSHJ_USER }}:22:localhost:22 ${{ github.event.inputs.SSHJ_USER }}@ssh-j.com
+        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -NR $SSHJ_USER:22:localhost:22 $SSHJ_USER@ssh-j.com
