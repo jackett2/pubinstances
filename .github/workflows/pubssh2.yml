@@ -1,0 +1,97 @@
+name: Instanciate public GH SSH
+
+on: 
+    #workflow_dispatch
+    schedule:
+    #- cron:  '0 */6 * * *'
+    - cron: '30 3,9,15,21 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ssh-key: ${{ secrets.SECRET_SSH_TO_CONFIGFILES_PRIVATE_KEY }}
+        repository: jackett2/configfiles
+        path: ./CONFIGFILES_PRIVATE
+
+    - name: What time is it ?
+      run: |
+        date -u
+        TZ="Europe/Paris" date
+    
+    - name: Freeing some space
+      run: |
+        set -xe
+        
+        RM='sudo rm -rf'
+        $RM /usr/share/dotnet /usr/share/swift /usr/local/lib/android /opt/ghc /usr/local/.ghcup "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY" /opt/hostedtoolcache/ /usr/local/graalvm/ /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
+        sudo docker image prune --all --force
+        
+        APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
+        $APT update
+        $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*' azure-cli google-* google-chrome-stable firefox mono-devel libgl1-mesa-dri microsoft-edge-stable temurin-8-jdk temurin-1* gfortran*
+        $APT autoremove --purge -y
+        $APT autoclean
+        $APT clean
+
+    - name: Install some packages
+      run: |
+        set -xe
+        APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
+        $APT update
+        $APT install axel bmon colordiff docker-compose fd-find ffmpeg htop nmon nmap ncat socat parallel python3 python3-dev python3-pip python3-virtualenv rar ripgrep virtualenvwrapper unrar
+        
+    - name: Populate $CONFIGFILES_PRIVATE env var
+      run: echo "CONFIGFILES_PRIVATE=$GITHUB_WORKSPACE/CONFIGFILES_PRIVATE" >> $GITHUB_ENV
+
+    - name: Tweak some config and start the SSH service
+      continue-on-error: true
+      run: |
+        set -xe
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/sshd_config /etc/ssh/sshd_config
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/bashrc ~/.bashrc
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/bashrc /root/.bashrc
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/bash_profile ~/.bash_profile
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/bash_profile /root/.bash_profile
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/vimrc ~/.vimrc
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/vimrc /root/.vimrc
+        sudo cp -f $CONFIGFILES_PRIVATE/sshd/inputrc /etc/inputrc
+
+        sudo rm /etc/localtime
+        sudo ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+        
+        echo "runner:${{ secrets.SECRET_SSH_RUNNER_PASSWORD }}" > pass
+        sudo chpasswd < pass
+
+        sudo rm -rf /etc/update-motd.d/10-help-text
+        sudo rm -rf /etc/update-motd.d/9*
+        sudo rm -rf /etc/legal
+
+        sudo chmod -R o+rw /mnt/
+        sudo mkdir -p /mnt/dl/_incomplete/
+        sudo wget -nv "https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-4.6.5_v2.0.10/x86_64-qbittorrent-nox" -O "/tmp/qbittorrent"
+        sudo chmod o+x "/tmp/qbittorrent"
+        sudo mkdir -p "/home/runner/.config/qBittorrent/"
+        sudo cp -f $CONFIGFILES_PRIVATE/qbittorrent/qBittorrent.conf /home/runner/.config/qBittorrent/
+
+        sudo wget -nv "https://github.com/static-web-server/static-web-server/releases/download/v2.31.1/static-web-server-v2.31.1-x86_64-unknown-linux-gnu.tar.gz" -O "/tmp/static.tar.gz"
+        sudo tar -xvzf "/tmp/static.tar.gz" --strip=1 -C "/tmp/"
+        sudo chmod o+x "/tmp/static-web-server"
+        
+        sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2024.10.0/cloudflared-linux-amd64" -O "/tmp/cfd"
+        sudo chmod o+x "/tmp/cfd"
+
+        sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
+        sudo chmod o+x "/tmp/ia"
+        
+        #sudo cat /etc/passwd
+        #sudo cat /etc/shadow
+        #sudo cat /etc/ssh/sshd_config
+        
+        sudo service ssh start
+        
+    - name: Start tunnel
+      run: |
+        timeout 345m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -NR ${{ secrets.SECRET_SSHJ_DEVICE_NAME }}:22:localhost:22 ${{ secrets.SECRET_SSHJ_USERNAME }}@ssh-j.com
