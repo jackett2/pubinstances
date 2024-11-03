@@ -1,4 +1,4 @@
-name: Instanciate public GH SSH
+name: Instanciate public GH SSH 2
 
 on: 
     #workflow_dispatch
