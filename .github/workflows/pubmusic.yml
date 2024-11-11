@@ -60,7 +60,7 @@ jobs:
 
          sudo nohup python3 index.py > nohup_python.out 2> nohup_python.err < /dev/null &
          
-         sudo apt autoremove --purge nodejs npm
+         sudo $APT autoremove --purge nodejs npm
          sudo rm -rf ~/.npm /usr/local/lib/node_modules
          sudo curl -0 -L https://npmjs.org/install.sh | sudo sh
          NPMBIN="/usr/local/bin/npm"
