@@ -122,7 +122,7 @@ jobs:
 
     - name: Set default SSHJ username
       run: |
-        echo "SSHJ_USER=$${{ secrets.SECRET_SSHJ_USERNAME_ONDEMAND }}" >> $GITHUB_ENV
+        echo "SSHJ_USER=${{ secrets.SECRET_SSHJ_USERNAME_ONDEMAND }}" >> $GITHUB_ENV
     
     - name: Replace default SSHJ username if workflow input is given
       if: "${{ github.event.inputs.SSHJ_USER != '' }}"
