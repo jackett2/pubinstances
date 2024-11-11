@@ -70,7 +70,9 @@ jobs:
          echo "NPMBIN=$NPMBIN" >> $GITHUB_ENV
 
          cd /tmp/music/cloudtube/
-         sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
+         #sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
+         
+         $NPMBIN run start
          
          sudo netstat -ntlpg
         
