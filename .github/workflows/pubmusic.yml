@@ -59,9 +59,7 @@ jobs:
          cd /tmp/music/newleaf/
          sudo pip install -r requirements.txt
 
-         sudo nohup python3 index.py > nohup.out 2> nohup.err < /dev/null &
-         
-         sudo netstat -ntlpg|grep 3000
+         sudo nohup python3 index.py > nohup_python.out 2> nohup_python.err < /dev/null &
          
          sudo apt autoremove --purge nodejs npm
          sudo rm -rf ~/.npm /usr/local/lib/node_modules
@@ -71,8 +69,10 @@ jobs:
          $NPMBIN -v
          echo "NPMBIN=$NPMBIN" >> $GITHUB_ENV
 
-         cd /tmp/music/cloudtube
-         sudo $NPMBIN run start
+         cd /tmp/music/cloudtube/
+         sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
+         
+         sudo netstat -ntlpg
         
     - name: Start tunnel
       env:
