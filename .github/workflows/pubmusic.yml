@@ -50,14 +50,13 @@ jobs:
          
          cd /tmp/
          
-         sudo docker run --restart=always -itd --name warp_socks_v3 -p 9091:9091 monius/docker-warp-socks:v3
-         sleep 5
-
-         export http_proxy="http://127.0.0.1:9091"
-         export https_proxy="http://127.0.0.1:9091"
+         sudo docker run -q --restart=always -itd --name warp_socks_v3 -p 9091:9091 monius/docker-warp-socks:v3
 
          cd /tmp/music/newleaf/
          sudo pip install -r requirements.txt
+        
+         export http_proxy="http://127.0.0.1:9091"
+         export https_proxy="http://127.0.0.1:9091"
 
          sudo nohup python3 index.py > nohup_python.out 2> nohup_python.err < /dev/null &
          
@@ -70,10 +69,10 @@ jobs:
          echo "NPMBIN=$NPMBIN" >> $GITHUB_ENV
 
          cd /tmp/music/cloudtube/
-         #sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
-         
-         $NPMBIN run start
-         
+         #$NPMBIN run start
+         sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
+
+         sleep 5
          sudo netstat -ntlpg
         
     - name: Start tunnel
