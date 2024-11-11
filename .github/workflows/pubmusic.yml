@@ -28,7 +28,7 @@ jobs:
          $APT update
          #$APT install axel bmon colordiff fd-find ffmpeg htop nmon nmap ncat socat parallel python3 python3-dev python3-pip python3-virtualenv rar ripgrep virtualenvwrapper unrar
          $APT install docker-compose
-        
+         
     - name: Populate $CONFIGFILES_PRIVATE env var
       run: echo "CONFIGFILES_PRIVATE=$GITHUB_WORKSPACE/CONFIGFILES_PRIVATE" >> $GITHUB_ENV
 
@@ -41,8 +41,38 @@ jobs:
         chmod 400 /tmp/key
         
         cp -f -r $CONFIGFILES_PRIVATE/music/ /tmp/
-        cd /tmp/music/
-        docker-compose -f ./docker-compose.yml up -d
+        #cd /tmp/music/
+        #docker-compose -f ./docker-compose.yml up -d
+
+    - name: Install prerequisites
+      run: |
+         set -xe
+         
+         cd /tmp/
+         
+         sudo docker run --restart=always -itd --name warp_socks_v3 -p 9091:9091 monius/docker-warp-socks:v3
+         sleep 5
+
+         export http_proxy="http://127.0.0.1:9091"
+         export https_proxy="http://127.0.0.1:9091"
+
+         cd /tmp/music/newleaf/
+         sudo pip install -r requirements.txt
+
+         sudo nohup python3 index.py > nohup.out 2> nohup.err < /dev/null &
+         
+         sudo netstat -ntlpg|grep 3000
+         
+         sudo apt autoremove --purge nodejs npm
+         sudo rm -rf ~/.npm /usr/local/lib/node_modules
+         sudo curl -0 -L https://npmjs.org/install.sh | sudo sh
+         NPMBIN="/usr/local/bin/npm"
+         ls -alh $NPMBIN
+         $NPMBIN -v
+         echo "NPMBIN=$NPMBIN" >> $GITHUB_ENV
+
+         cd /tmp/music/cloudtube
+         sudo $NPMBIN run start
         
     - name: Start tunnel
       env:
@@ -52,6 +82,8 @@ jobs:
         SECRET_MUSIC_HYP_FE: ${{ secrets.SECRET_MUSIC_HYP_FE }}
         SECRET_MUSIC_HYP_BE: ${{ secrets.SECRET_MUSIC_HYP_BE }}
         SECRET_SSH_RUNNER_GW: ${{ secrets.SECRET_SSH_RUNNER_GW }}
+        SECRET_MUSIC_CT: ${{ secrets.SECRET_MUSIC_CT }}
         
       run: |
-        timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_PIPED_FE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_BE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_PROXY":80:localhost:8080 -R "$SECRET_MUSIC_HYP_FE":80:localhost:8081 -R "$SECRET_MUSIC_HYP_BE":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
+        #timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_PIPED_FE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_BE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_PROXY":80:localhost:8080 -R "$SECRET_MUSIC_HYP_FE":80:localhost:8081 -R "$SECRET_MUSIC_HYP_BE":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
+        timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "SECRET_MUSIC_CT":80:localhost:10412 "$SECRET_SSH_RUNNER_GW" > /dev/null
