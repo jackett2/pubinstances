@@ -75,7 +75,7 @@ jobs:
          sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
 
          cd /tmp/music/invidious/
-         docker-compose -q -f ./docker-compose.yaml up -d
+         docker-compose --quiet-pull -f ./docker-compose.yaml up -d
 
          sleep 5
          sudo netstat -ntlpg
