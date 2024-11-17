@@ -74,6 +74,9 @@ jobs:
          #$NPMBIN run start
          sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
 
+         cd /tmp/music/invidious/
+         docker-compose -f ./docker-compose.yml up -d
+
          sleep 5
          sudo netstat -ntlpg
         
@@ -87,7 +90,8 @@ jobs:
         SECRET_SSH_RUNNER_GW: ${{ secrets.SECRET_SSH_RUNNER_GW }}
         
         SECRET_MUSIC_CT: ${{ secrets.SECRET_MUSIC_CT }}
+        SECRET_MUSIC_IV: ${{ secrets.SECRET_MUSIC_IV }}
         
       run: |
         #timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_PIPED_FE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_BE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_PROXY":80:localhost:8080 -R "$SECRET_MUSIC_HYP_FE":80:localhost:8081 -R "$SECRET_MUSIC_HYP_BE":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
-        timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_CT":80:localhost:10412 "$SECRET_SSH_RUNNER_GW" > /dev/null
+        timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_CT":80:localhost:10412 "$SECRET_MUSIC_IV":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
