@@ -94,4 +94,4 @@ jobs:
         
       run: |
         #timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_PIPED_FE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_BE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_PROXY":80:localhost:8080 -R "$SECRET_MUSIC_HYP_FE":80:localhost:8081 -R "$SECRET_MUSIC_HYP_BE":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
-        timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_CT":80:localhost:10412 "$SECRET_MUSIC_IV":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
+        timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_CT":80:localhost:10412 "$SECRET_MUSIC_IV":80:localhost:3001 "$SECRET_SSH_RUNNER_GW" > /dev/null
