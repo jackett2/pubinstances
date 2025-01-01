@@ -71,8 +71,10 @@ jobs:
          echo "NPMBIN=$NPMBIN" >> $GITHUB_ENV
 
          cd /tmp/music/cloudtube/
-         #$NPMBIN run start
-         sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
+         $NPMBIN install
+         $NPMBIN run start
+         
+         #sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
 
          cd /tmp/music/invidious/
          docker-compose -f ./docker-compose.yaml up -d --quiet-pull
