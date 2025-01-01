@@ -72,9 +72,8 @@ jobs:
 
          cd /tmp/music/cloudtube/
          $NPMBIN rebuild
-         $NPMBIN run start
-         
-         #sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
+         #$NPMBIN run start
+         sudo nohup $NPMBIN run start > nohup_npm.out 2> nohup_npm.err < /dev/null &
 
          cd /tmp/music/invidious/
          docker-compose -f ./docker-compose.yaml up -d --quiet-pull
