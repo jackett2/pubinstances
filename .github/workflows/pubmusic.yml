@@ -94,6 +94,7 @@ jobs:
         SECRET_MUSIC_IV: ${{ secrets.SECRET_MUSIC_IV }}
 
         SECRET_SSH_GW_S: ${{ secrets.SECRET_SSH_GW_S }}
+        SECRET_SSH_GW_S_FQDN: ${{ secrets.SECRET_SSH_GW_S_FQDN }}
         
       run: |
         #timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_PIPED_FE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_BE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_PROXY":80:localhost:8080 -R "$SECRET_MUSIC_HYP_FE":80:localhost:8081 -R "$SECRET_MUSIC_HYP_BE":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
