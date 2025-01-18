@@ -52,7 +52,7 @@ jobs:
          
          cd /tmp/
          
-         sudo docker run -q --restart=always -itd --name warp_socks_v3 -p 9091:9091 monius/docker-warp-socks:v3
+         sudo docker run -q --restart=always -itd --name warp_socks_v3 -p 127.0.0.1:9091:9091 monius/docker-warp-socks:v3
 
          cd /tmp/music/newleaf/
          sudo pip install -q -r requirements.txt
