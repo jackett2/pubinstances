@@ -33,20 +33,20 @@ jobs:
         date -u
         TZ="Europe/Paris" date
     
-    - name: Freeing some space
-      run: |
-        set -xe
+    # - name: Freeing some space
+    #   run: |
+    #     set -xe
         
-        RM='sudo rm -rf'
-        $RM /usr/share/dotnet /usr/share/swift /usr/local/lib/android /opt/ghc /usr/local/.ghcup "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY" /opt/hostedtoolcache/ /usr/local/graalvm/ /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
-        sudo docker image prune --all --force
+    #     RM='sudo rm -rf'
+    #     $RM /usr/share/dotnet /usr/share/swift /usr/local/lib/android /opt/ghc /usr/local/.ghcup "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY" /opt/hostedtoolcache/ /usr/local/graalvm/ /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
+    #     sudo docker image prune --all --force
         
-        APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
-        $APT update
-        $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*' azure-cli google-* google-chrome-stable firefox mono-devel libgl1-mesa-dri microsoft-edge-stable temurin-8-jdk temurin-1* gfortran*
-        $APT autoremove --purge -y
-        $APT autoclean
-        $APT clean
+    #     APT='sudo apt -y -qq -o=Dpkg::Use-Pty=0'
+    #     $APT update
+    #     $APT remove -y '^dotnet-.*' '^llvm-.*' '^php.*' '^mongodb-.*' '^mysql-.*' '^r-(base|cran)*' azure-cli google-* google-chrome-stable firefox mono-devel libgl1-mesa-dri microsoft-edge-stable temurin-8-jdk temurin-1* gfortran*
+    #     $APT autoremove --purge -y
+    #     $APT autoclean
+    #     $APT clean
 
     - name: Install some packages
       run: |
@@ -99,7 +99,9 @@ jobs:
         sudo chmod o+x "/tmp/ia" && sudo mv "/tmp/ia" "/usr/local/bin/"
 
         sudo wget -nv "https://github.com/KoalaBear84/OpenDirectoryDownloader/releases/download/v3.3.0.4/OpenDirectoryDownloader-3.3.0.4-linux-x64-self-contained.zip" -O "/tmp/OpenDirectoryDownloader.zip"
-        sudo unzip "/tmp/OpenDirectoryDownloader.zip" && sudo mv "/tmp/OpenDirectoryDownloader" "/usr/local/bin/"
+        sudo unzip "/tmp/OpenDirectoryDownloader.zip" 
+        sudo ls "/tmp/OpenDirectoryDownloader"
+        sudo mv "/tmp/OpenDirectoryDownloader" "/usr/local/bin/"
 
         sudo wget -nv "https://github.com/ekzhang/bore/releases/download/v0.5.2/bore-v0.5.2-x86_64-unknown-linux-musl.tar.gz" -O "/tmp/bore.tar.gz"
         sudo tar -xvzf "/tmp/bore.tar.gz" -C "/tmp/"
