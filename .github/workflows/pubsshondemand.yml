@@ -100,7 +100,7 @@ jobs:
 
         sudo wget -nv "https://github.com/KoalaBear84/OpenDirectoryDownloader/releases/download/v3.3.0.4/OpenDirectoryDownloader-3.3.0.4-linux-x64-self-contained.zip" -O "/tmp/OpenDirectoryDownloader_bin.zip"
         sudo unzip "/tmp/OpenDirectoryDownloader_bin.zip" 
-        sudo ls "/tmp/"
+        sudo ls -alh "/tmp/"
         sudo mv "/tmp/OpenDirectoryDownloader" "/usr/local/bin/"
 
         sudo wget -nv "https://github.com/ekzhang/bore/releases/download/v0.5.2/bore-v0.5.2-x86_64-unknown-linux-musl.tar.gz" -O "/tmp/bore.tar.gz"
