@@ -87,7 +87,7 @@ jobs:
         sudo chmod o+x "/tmp/ia" && sudo mv "/tmp/ia" "/usr/local/bin/"
 
         sudo wget -nv "https://github.com/KoalaBear84/OpenDirectoryDownloader/releases/download/v3.3.0.4/OpenDirectoryDownloader-3.3.0.4-linux-x64-self-contained.zip" -O "/tmp/OpenDirectoryDownloader.zip"
-        sudo unzip "/tmp/OpenDirectoryDownloader.zip" -d "/tmp/ && sudo mv "/tmp/OpenDirectoryDownloader" "/usr/local/bin/"
+        sudo unzip "/tmp/OpenDirectoryDownloader.zip" -d "/tmp/" && sudo mv "/tmp/OpenDirectoryDownloader" "/usr/local/bin/"
 
         sudo wget -nv "https://github.com/ekzhang/bore/releases/download/v0.5.2/bore-v0.5.2-x86_64-unknown-linux-musl.tar.gz" -O "/tmp/bore.tar.gz"
         sudo tar -xvzf "/tmp/bore.tar.gz" -C "/tmp/"
