@@ -1,10 +1,10 @@
 name: Instanciate public music
 
 on: 
-    #workflow_dispatch
-    schedule:
+    workflow_dispatch
+    #schedule:
     #- cron:  '0 */6 * * *'
-    - cron: '30 3,9,15,21 * * *'
+    #- cron: '30 3,9,15,21 * * *'
 
 jobs:
   build:
@@ -43,8 +43,9 @@ jobs:
         chmod 400 /tmp/key
         
         cp -f -r $CONFIGFILES_PRIVATE/music/ /tmp/
-        #cd /tmp/music/
-        #docker-compose -f ./docker-compose.yml up -d
+        cd /tmp/music/hyperpipe/
+        docker-compose -f ./docker-compose.yml up -d
+        
 
     - name: Install prerequisites
       run: |
