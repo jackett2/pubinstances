@@ -99,7 +99,7 @@ jobs:
         SECRET_SSH_GW_S_FQDN: ${{ secrets.SECRET_SSH_GW_S_FQDN }}
         
       run: |
-        timeout 350m ssh -N -o ServerAliveInterval=120 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R 127.0.0.1:1111:localhost:10412 -R 127.0.0.1:1112:localhost:3001 "$SECRET_SSH_GW_S" -p 2222 > /dev/null
+        timeout 350m ssh -N -o ServerAliveInterval=120 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R 127.0.0.1:1111:localhost:10412 -R 127.0.0.1:1112:localhost:3001 127.0.0.1:1113:localhost:3002 127.0.0.1:1114:localhost:8081 "$SECRET_SSH_GW_S" -p 2222 > /dev/null
         
         #timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_PIPED_FE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_BE":80:localhost:8080 -R "$SECRET_MUSIC_PIPED_PROXY":80:localhost:8080 -R "$SECRET_MUSIC_HYP_FE":80:localhost:8081 -R "$SECRET_MUSIC_HYP_BE":80:localhost:3000 "$SECRET_SSH_RUNNER_GW" > /dev/null
         #timeout 350m ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /tmp/key -R "$SECRET_MUSIC_CT":80:localhost:10412 -R "$SECRET_MUSIC_IV":80:localhost:3001 "$SECRET_SSH_RUNNER_GW" > /dev/null
