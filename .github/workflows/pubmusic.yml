@@ -81,6 +81,7 @@ jobs:
 
          sleep 5
          sudo netstat -ntlpg
+         sudo docker ps --no-trunc
         
     - name: Start tunnel
       env:
