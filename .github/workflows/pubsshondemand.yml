@@ -18,6 +18,10 @@ on:
           SSHJ_USER:
             description: 'SSH username for provider #2'
 
+          RECLAIM_SPACE:
+            description: 'reclaim space'
+            type: boolean
+            
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,6 +38,7 @@ jobs:
         TZ="Europe/Paris" date
     
     - name: Freeing some space
+      if: "${{ github.event.inputs.RECLAIM_SPACE }}"
       run: |
         set -xe
         
