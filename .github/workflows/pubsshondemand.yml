@@ -20,12 +20,18 @@ on:
 
           RECLAIM_SPACE:
             description: 'reclaim space'
+            required: true
             type: boolean
             
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Echo params
+      run: |
+        echo "Reclaim: ${{ github.event.inputs.RECLAIM_SPACE }}"
+        echo "Provider: ${{ github.event.inputs.PROVIDER }}"
+        
     - uses: actions/checkout@v4
       with:
         ssh-key: ${{ secrets.SECRET_SSH_TO_CONFIGFILES_PRIVATE_KEY }}
