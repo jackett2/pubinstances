@@ -44,7 +44,7 @@ jobs:
         TZ="Europe/Paris" date
     
     - name: Freeing some space
-      if: "${{ github.event.inputs.RECLAIM_SPACE }}"
+      if: "${{ github.event.inputs.RECLAIM_SPACE == 'true' }}"
       run: |
         set -xe
         
