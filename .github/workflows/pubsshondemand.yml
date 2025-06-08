@@ -106,9 +106,6 @@ jobs:
         sudo wget -nv "https://github.com/cloudflare/cloudflared/releases/download/2025.1.0/cloudflared-linux-amd64" -O "/tmp/cfd"
         sudo chmod o+x "/tmp/cfd" && sudo mv "/tmp/cfd" "/usr/local/bin/"
 
-        sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
-        sudo chmod o+x "/tmp/ia" && sudo mv "/tmp/ia" "/usr/local/bin/"
-
         sudo wget -nv "https://github.com/KoalaBear84/OpenDirectoryDownloader/releases/download/v3.3.0.4/OpenDirectoryDownloader-3.3.0.4-linux-x64-self-contained.zip" -O "/tmp/OpenDirectoryDownloader_bin.zip"
         sudo unzip "/tmp/OpenDirectoryDownloader_bin.zip" -d "/tmp/" && sudo mv "/tmp/OpenDirectoryDownloader" "/usr/local/bin/"
 
@@ -122,6 +119,9 @@ jobs:
         sudo mv "/tmp/goproxy/proxy" "/usr/local/bin/goproxy"
 
         sudo wget -nv "https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py" -O "/tmp/copyparty.py"
+
+        sudo wget -nv "https://archive.org/download/ia-pex/ia" -O "/tmp/ia"
+        sudo chmod o+x "/tmp/ia" && sudo mv "/tmp/ia" "/usr/local/bin/"
 
         #sudo cat /etc/passwd
         #sudo cat /etc/shadow
