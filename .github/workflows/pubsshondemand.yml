@@ -120,7 +120,8 @@ jobs:
         sudo wget -nv "https://github.com/snail007/goproxy/releases/download/v14.8/proxy-linux-amd64.tar.gz" -O "/tmp/goproxy/goproxy.tar.gz"
         sudo tar -xvzf "/tmp/goproxy/goproxy.tar.gz" -C "/tmp/goproxy/"
         sudo mv "/tmp/goproxy/proxy" "/usr/local/bin/goproxy"
-        
+
+        sudo wget -nv "https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py" -O "/tmp/copyparty.py"
 
         #sudo cat /etc/passwd
         #sudo cat /etc/shadow
