@@ -114,7 +114,7 @@ jobs:
         sudo chmod o+x "/tmp/bore" && sudo mv "/tmp/bore" "/usr/local/bin/"
 
         sudo mkdir -p "/tmp/goproxy" 
-        sudo wget -nv "https://github.com/snail007/goproxy/releases/download/v14.8/proxy-linux-amd64.tar.gz" -O "/tmp/goproxy/goproxy.tar.gz"
+        sudo wget -nv "https://github.com/snail007/goproxy/releases/download/v15.1/proxy-linux-amd64.tar.gz" -O "/tmp/goproxy/goproxy.tar.gz"
         sudo tar -xvzf "/tmp/goproxy/goproxy.tar.gz" -C "/tmp/goproxy/"
         sudo mv "/tmp/goproxy/proxy" "/usr/local/bin/goproxy"
 
